@@ -1,4 +1,4 @@
-#vim configuration
+# vim configuration
 
 Fairly standard vim configuration to use on remote machines with shortcuts for faster tab/split movement. 
 
