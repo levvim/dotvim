@@ -150,7 +150,14 @@ nnoremap td  :tabclose<CR>
 "nnoremap tl :tabprev<CR>
 
 "fast insert comment lines with @s macro
-let @s = "O################################################################################jj"
+nnoremap <silent><Leader>3 : O################################################################################jjk<CR>
+
+"fast insert blank lines
+nnoremap <silent><Leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
+
+"delete any trailing whitespace
+let @a = ":%s/\s\+$//e"
+
 
 
 
