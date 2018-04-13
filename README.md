@@ -8,7 +8,7 @@ Also used to interactively work in R via Neovim (https://github.com/jalvesaq/Nvi
 
 Installation:
 
-    git clone git://github.com/nelstrom/dotvim.git ~/.vim
+    git clone git://github.com/levvim/dotvim.git ~/.vim
 
 Create symlinks:
 
