@@ -1,6 +1,7 @@
 " Levi Mangarin vimrc
-" via pathogen, using packages crtlp syntastic airline vim-r nerdtree fugitive
+" via pathogen, using packages airline vim-r nerdtree 
 "
+set encoding=utf-8
 set nocompatible
 filetype off
 
@@ -32,35 +33,11 @@ set hlsearch        "highlight matches
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "package settings
 
-"crtlp settings
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-let g:ctrlp_map = '<c-p>'
-
-"syntastic settings
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-set statusline+=%{fugitive#statusline()} " add fugitive line functionality
-
-""powerline settings (currently using airline instead of powerline)
-"set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
-"python from powerline.vim import setup as powerline_setup
-"python powerline_setup()
-"python del powerline_setup
-"""Always show statusline
-"set laststatus=2
-""" Use 256 colours (Use this setting only if your terminal supports 256 colours
-"set t_Co=256
-""" let g:Powerline_symbols = "fancy"
-
 "airline settings
 set laststatus=2
 let g:airline_theme='sol'
 set t_Co=256
+set noshowmode
 " buffers via airline
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
@@ -77,23 +54,7 @@ vmap <Space> <Plug>RDSendSelection
 "nerdtree
 map <C-n> :NERDTreeToggle<CR>
 map <Leader>p :NERDTreeToggle<CR>
-
-"fugitive git bindings
-nnoremap <Leader>ga :Git add %:p<CR><CR>
-nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>gc :Gcommit -v -q<CR>
-nnoremap <Leader>gt :Gcommit -v -q %:p<CR>
-nnoremap <Leader>gd :Gdiff<CR>
-nnoremap <Leader>ge :Gedit<CR>
-nnoremap <Leader>gr :Gread<CR>
-nnoremap <Leader>gw :Gwrite<CR><CR>
-nnoremap <Leader>gl :silent! Glog<CR>:bot copen<CR>
-nnoremap <Leader>gp :Ggrep<Space>
-nnoremap <Leader>gm :Gmove<Space>
-nnoremap <Leader>gb :Git branch<Space>
-nnoremap <Leader>go :Git checkout<Space>
-nnoremap <Leader>gps :Dispatch! git push<CR>
-nnoremap <Leader>gpl :Dispatch! git pull<CR>
+let g:NERDTreeDirArrows=0
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " keybindings
@@ -105,18 +66,8 @@ nnoremap k gk
 "call cli without shift
 nnoremap ; :
 
-"$/^ doesn't do anything
-"nnoremap $ <nop>
-"nnoremap ^ <nop>
-
 "jj is escape in insert mode
 inoremap jj <ESC>
-
-""fast window split resizing (by scaled percentage)
-"nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
-"nnoremap <silent> <Leader>= :exe "resize " . (winheight(0) * 3/2)<CR>
-"nnoremap <silent> <Leader>[ :exe "resize " . (winwidth(0) * 2/3)<CR>
-"nnoremap <silent> <Leader>] :exe "resize " . (winwidth(0) * 3/2)<CR>
 
 "fast window split resizing (by fixed amount)
 nnoremap <silent> <Leader>- :resize -20<CR>
@@ -124,10 +75,6 @@ nnoremap <silent> <Leader>= :resize +20<CR>
 nnoremap <silent> <Leader>[ :vertical resize -15<CR>
 nnoremap <silent> <Leader>] :vertical resize +15<CR>
 nnoremap <C-P> :Vexplore<CR>
-
-"netrw fast open
-"nnoremap <Leader>p :Vexplore<CR>
-nnoremap <Leader>o :Sexplore<CR>
 
 "fast window split navigation
 nnoremap <C-j> <C-w><C-j>
@@ -141,28 +88,99 @@ nnoremap tj  :tabnext<CR>
 nnoremap tk  :tabprev<CR>
 nnoremap tl  :tablast<CR>
 nnoremap tt  :tabedit<Space>
-"nnoremap tn  :tabnext<Space>
 nnoremap tn :tabnew<CR>
 nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
-"alternatively use
-"nnoremap th :tabnext<CR>
-"nnoremap tl :tabprev<CR>
 
 "fast insert comment lines with @s macro
-nnoremap <silent><Leader>3 : O################################################################################jjk<CR>
+nnoremap <silent><Leader>3 o################################################################################<Esc>kk<CR>
 
 "fast insert blank lines
 nnoremap <silent><Leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
+"fast insert blank lines
+nnoremap <silent><Leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
+
+"toggle paste
+nnoremap <Leader>p :set invpaste paste?<CR>
+set pastetoggle=<Leader>p
+set showmode
 
 "delete any trailing whitespace
 let @a = ":%s/\s\+$//e"
 
+" ConqueShell for Shell commands in Vim
+nnoremap <silent> <Leader>rb  :ConqueTermVSplit bash<CR>
+nnoremap <silent> <Leader>rp  :ConqueTermVSplit python<CR>
+"nnoremap <silent> <Leader>l V<F9><C-w><C-a><CR>
+imap <silent> <Leader>l <Esc>Vy<C-w>p
+nmap <silent> <Leader>l Vy<Esc><C-w>p
+vmap <silent> <Leader>l y<C-w>p
+imap <silent> <Leader>l <Leader>a
+imap <silent> <Leader>a <Esc><C-w><S-w>']0j
+nmap <silent> <Leader>a <C-w><S-w>']0
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Unused packages
 
+"crtlp settings
+"set runtimepath^=~/.vim/bundle/ctrlp.vim
+"let g:ctrlp_map = '<c-p>'
 
+"syntastic settings
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"set statusline+=%{fugitive#statusline()} " add fugitive line functionality
 
+""powerline settings (currently using airline instead of powerline)
+"set rtp+=$HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/
+"python from powerline.vim import setup as powerline_setup
+"python powerline_setup()
+"python del powerline_setup
+"""Always show statusline
+"set laststatus=2
+""" Use 256 colours (Use this setting only if your terminal supports 256 colours
+"set t_Co=256
+""" let g:Powerline_symbols = "fancy"
 
+""fugitive git bindings
+"nnoremap <Leader>ga :Git add %:p<CR><CR>
+"nnoremap <Leader>gs :Gstatus<CR>
+"nnoremap <Leader>gc :Gcommit -v -q<CR>
+"nnoremap <Leader>gt :Gcommit -v -q %:p<CR>
+"nnoremap <Leader>gd :Gdiff<CR>
+"nnoremap <Leader>ge :Gedit<CR>
+"nnoremap <Leader>gr :Gread<CR>
+"nnoremap <Leader>gw :Gwrite<CR><CR>
+"nnoremap <Leader>gl :silent! Glog<CR>:bot copen<CR>
+"nnoremap <Leader>gp :Ggrep<Space>
+"nnoremap <Leader>gm :Gmove<Space>
+"nnoremap <Leader>gb :Git branch<Space>
+"nnoremap <Leader>go :Git checkout<Space>
+"nnoremap <Leader>gps :Dispatch! git push<CR>
+"nnoremap <Leader>gpl :Dispatch! git pull<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Unused keybinds
+
+""fast window split resizing (by scaled percentage)
+"nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+"nnoremap <silent> <Leader>= :exe "resize " . (winheight(0) * 3/2)<CR>
+"nnoremap <silent> <Leader>[ :exe "resize " . (winwidth(0) * 2/3)<CR>
+"nnoremap <silent> <Leader>] :exe "resize " . (winwidth(0) * 3/2)<CR>
+
+"netrw fast open
+"nnoremap <Leader>p :Vexplore<CR>
+"nnoremap <Leader>o :Sexplore<CR>
 
 
 
