@@ -1,8 +1,8 @@
-# Vim configuration
+# dotvim: Vim configuration
 
-My current Vim configuration. It is fairly standard with the addition of Nvim-r and QOL keybinds. 
+My current Vim configuration. It is fairly standard with the addition of gdb (Conque, Nvim-r) and QOL keybinds. 
 
-Packages are managed via pathogen and colorset is colorized dark. 
+Packages are managed via pathogen.
 
 * surround
 * fugitive
