@@ -1,6 +1,8 @@
-" Levi Mangarin vimrc
-" via pathogen, using packages airline vim-r nerdtree 
-"
+" Levi Mangarin 2019 
+" .vimrc
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Basics
 set encoding=utf-8
 set nocompatible
 filetype off
@@ -31,43 +33,17 @@ set incsearch       "search as characters are entered
 set hlsearch        "highlight matches
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"package settings
+" Keybindings
 
-"airline settings
-set laststatus=2
-let g:airline_theme='sol'
-set t_Co=256
-set noshowmode
-" buffers via airline
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-"vim-r-plugin
-"maplocalleader = "\\"
-let vimrplugin_assign = 0
-"NEOVIM NVIM BINDINGS
-"send vis selection block using r
-vmap <Space> <Plug>RDSendSelection
-
-"nerdtree
-map <C-n> :NERDTreeToggle<CR>
-map <Leader>p :NERDTreeToggle<CR>
-let g:NERDTreeDirArrows=0
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" keybindings
-
-"move vertically by visual line
-nnoremap j gj
-nnoremap k gk
+"jj is escape in insert mode
+inoremap jj <ESC>
 
 "call cli without shift
 nnoremap ; :
 
-"jj is escape in insert mode
-inoremap jj <ESC>
+"move vertically by visual line
+nnoremap j gj
+nnoremap k gk
 
 "fast window split resizing (by fixed amount)
 nnoremap <silent> <Leader>- :resize -20<CR>
@@ -108,18 +84,208 @@ set showmode
 "delete any trailing whitespace
 let @a = ":%s/\s\+$//e"
 
-" ConqueShell for Shell commands in Vim
+" Enable folding with the spacebar
+nnoremap <space> za
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Package settings
+
+"airline settings
+set laststatus=2
+let g:airline_theme='sol'
+set t_Co=256
+set noshowmode
+" buffers via airline
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
+
+"vim-r-plugin
+"maplocalleader = "\\"
+let vimrplugin_assign = 0
+"NEOVIM NVIM BINDINGS
+"send vis selection block using r
+vmap <Space> <Plug>RDSendSelection
+
+"nerdtree
+map <C-n> :NERDTreeToggle<CR>
+map <Leader>p :NERDTreeToggle<CR>
+let g:NERDTreeDirArrows=0
+
+"fugitive git bindings
+nnoremap <Leader>ga :Git add %:p<CR><CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gc :Gcommit -v -q<CR>
+nnoremap <Leader>gt :Gcommit -v -q %:p<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>ge :Gedit<CR>
+nnoremap <Leader>gr :Gread<CR>
+nnoremap <Leader>gw :Gwrite<CR><CR>
+nnoremap <Leader>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <Leader>gp :Ggrep<Space>
+nnoremap <Leader>gm :Gmove<Space>
+nnoremap <Leader>gb :Git branch<Space>
+nnoremap <Leader>go :Git checkout<Space>
+nnoremap <Leader>gps :Dispatch! git push<CR>
+nnoremap <Leader>gpl :Dispatch! git pull<CR>
+
+"vim-indent-guides
+let g:indent_guides_guide_size = 1
+let g:indent_guides_color_change_percent = 3
+let g:indent_guides_enable_on_vim_startup = 1
+
+"easymotion
+" change easymotion fast ping to s
+nmap s <Plug>(easymotion-overwin-f)
+"map <SPACE> <Plug>(easymotion-s2)
+" JK motions: Line motions
+map <SPACE>j <Plug>(easymotion-j)
+map <SPACE>k <Plug>(easymotion-k)
+" Turn on case-insensitive feature
+let g:EasyMotion_smartcase = 0
+
+" ConqueGDB
 nnoremap <silent> <Leader>rb  :ConqueTermVSplit bash<CR>
 nnoremap <silent> <Leader>rp  :ConqueTermVSplit python<CR>
-"nnoremap <silent> <Leader>l V<F9><C-w><C-a><CR>
-imap <silent> <Leader>l <Esc>Vy<C-w>p
-nmap <silent> <Leader>l Vy<Esc><C-w>p
-vmap <silent> <Leader>l y<C-w>p
-imap <silent> <Leader>l <Leader>a
-imap <silent> <Leader>a <Esc><C-w><S-w>']0j
-nmap <silent> <Leader>a <C-w><S-w>']0
+
+" Fast mode {{{
+if !exists('g:ConqueTerm_FastMode')
+    let g:ConqueTerm_FastMode = 0
+endif " }}}
+" automatically go into insert mode when entering buffer {{{
+if !exists('g:ConqueTerm_InsertOnEnter')
+    let g:ConqueTerm_InsertOnEnter = 0
+endif " }}}
+" Allow user to use <C-w> keys to switch window in insert mode. {{{
+if !exists('g:ConqueTerm_CWInsert')
+    let g:ConqueTerm_CWInsert = 0
+endif " }}}
+" Choose key mapping to leave insert mode {{{
+if !exists('g:ConqueTerm_EscKey')
+    let g:ConqueTerm_EscKey = 'jj'
+endif " }}}
+" Use this key to execute the current file in a split window. {{{
+if !exists('g:ConqueTerm_ExecFileKey')
+    let g:ConqueTerm_ExecFileKey = '<F11>'
+endif " }}}
+" Use this key to send the current file contents to conque. {{{
+if !exists('g:ConqueTerm_SendFileKey')
+    let g:ConqueTerm_SendFileKey = '<F10>'
+endif " }}}
+" Use this key to send selected text to conque. {{{
+if !exists('g:ConqueTerm_SendVisKey')
+    let g:ConqueTerm_SendVisKey = '<F9>'
+endif " }}}
+" Enable color. {{{
+if !exists('g:ConqueTerm_Color')
+    let g:ConqueTerm_Color = 1
+endif " }}}
+" Send key commands
+if !exists('g:conque_repl_send_key')
+    let g:conque_repl_send_key = '<F5>'
+endif
+if !exists('g:conque_repl_send_buffer_key')
+    let g:conque_repl_send_buffer_key = '<F6>'
+endif
+let s:locked = 0
+
+"send selections via <Leader>a
+nmap <Leader>a :call feedkeys("\<F5>")<CR>
+vnoremap <Leader>a :ConqueTermSendSelection<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"setup for conqueterm send via <F5> and <Leader>a
+" Based on 'conque_term#send_selected'
+fun! s:send_text(mode, all) 
+  if s:locked
+    return
+  endif
+  let s:locked = 1
+  " Conque sets the 'updatetime' option to 50 in order to use the 
+  " CursorHold hack to poll for program output and update the terminal
+  " buffer.
+  " The value of update_time is saved, since switching buffers with
+  " the 'sb' command doesn't trigger the events conqueshell needs to restore
+  " updatetime to its sane value, and making changes to the file buffer would
+  " cause a lot of swap writes(:h updatetime).
+  let saved_updatetime = &updatetime
+  " get current buffer name
+  let buffer_name = expand('%')
+  " get most recent/relevant terminal
+  let term = conque_term#get_instance()
+  " Test the current mode to paste correctly in the term
+  if a:mode == 2
+    " Visual mode, get lines selected and if needed, strip the start/end 
+    " of the first/last lines respectively.
+    let [lnum1, col1] = getpos("'<")[1:2]
+    let [lnum2, col2] = getpos("'>")[1:2]
+    let text = getline(lnum1, lnum2)
+    let text[0] = text[0][col1-1 :]
+    let text[-1] = text[-1][: col2-1]
+  else
+    if a:all
+      let text = getline(1,'$')
+    else
+      let text = [getline('.')]
+    endif
+  endif
+  call term.focus()
+  for line in text
+    call term.writeln(line)
+  endfor
+  " scroll buffer left
+  startinsert!
+  normal! 0zH
+  " If the buffers were switched in the current call stack, the terminal
+  " buffer would not be updated, and the eval results would not be visible. 
+  call s:after_ui_refresh('s:switch_buffer', [buffer_name, a:mode, saved_updatetime])
+endfun
+
+fun! s:switch_buffer(buffer_name, mode, saved_updatetime) 
+  augroup conque_repl_timeout
+    autocmd!
+  augroup END
+  let &updatetime = a:saved_updatetime
+  let save_sb = &switchbuf
+  sil set switchbuf=usetab
+  exe 'sb ' . a:buffer_name
+  let &switchbuf = save_sb
+  if a:mode > 0
+    stopinsert " Stop insert if was in normal or visual mode
+    if a:mode == 2
+      " Reselect previous selected text
+      " normal! gvl
+    endif
+  endif
+  let s:locked = 0
+endfun
+
+fun! s:after_ui_refresh(F, args)
+  let s:temp_function_name = a:F
+  let s:temp_function_args = a:args
+  augroup conque_repl_timeout
+    autocmd!
+    autocmd CursorHoldI * call call(s:temp_function_name, s:temp_function_args)
+  augroup END
+endfun
+
+command! ConqueTermSendLineInsert :call s:send_text(0, 0)
+command! ConqueTermSendLineNormal :call s:send_text(1, 0)
+command! -range ConqueTermSendSelection :call s:send_text(2, 0) 
+command! ConqueTermSendBufferInsert :call s:send_text(0, 1) 
+command! ConqueTermSendBufferNormal :call s:send_text(1, 1) 
+
+if g:conque_repl_send_key != '' && ! maparg(g:conque_repl_send_key)
+  exe 'inoremap <silent>' g:conque_repl_send_key '<ESC>:ConqueTermSendLineInsert<CR>'
+  exe 'nnoremap <silent>' g:conque_repl_send_key ':ConqueTermSendLineNormal<CR>'
+  exe 'vnoremap <silent>' g:conque_repl_send_key ':ConqueTermSendSelection<CR>'
+en
+
+if g:conque_repl_send_buffer_key != '' && ! maparg(g:conque_repl_send_buffer_key)
+  exe 'inoremap <silent>' g:conque_repl_send_buffer_key '<ESC>:ConqueTermSendBufferInsert<CR>'
+  exe 'nnoremap <silent>' g:conque_repl_send_buffer_key ':ConqueTermSendBufferNormal<CR>'
+en
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -152,22 +318,6 @@ nmap <silent> <Leader>a <C-w><S-w>']0
 "set t_Co=256
 """ let g:Powerline_symbols = "fancy"
 
-""fugitive git bindings
-"nnoremap <Leader>ga :Git add %:p<CR><CR>
-"nnoremap <Leader>gs :Gstatus<CR>
-"nnoremap <Leader>gc :Gcommit -v -q<CR>
-"nnoremap <Leader>gt :Gcommit -v -q %:p<CR>
-"nnoremap <Leader>gd :Gdiff<CR>
-"nnoremap <Leader>ge :Gedit<CR>
-"nnoremap <Leader>gr :Gread<CR>
-"nnoremap <Leader>gw :Gwrite<CR><CR>
-"nnoremap <Leader>gl :silent! Glog<CR>:bot copen<CR>
-"nnoremap <Leader>gp :Ggrep<Space>
-"nnoremap <Leader>gm :Gmove<Space>
-"nnoremap <Leader>gb :Git branch<Space>
-"nnoremap <Leader>go :Git checkout<Space>
-"nnoremap <Leader>gps :Dispatch! git push<CR>
-"nnoremap <Leader>gpl :Dispatch! git pull<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Unused keybinds
@@ -182,39 +332,4 @@ nmap <silent> <Leader>a <C-w><S-w>']0
 "nnoremap <Leader>p :Vexplore<CR>
 "nnoremap <Leader>o :Sexplore<CR>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

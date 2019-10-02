@@ -1,27 +1,28 @@
-# vim configuration
+# Vim configuration
 
-Fairly standard vim configuration to use on remote machines with shortcuts for faster tab/split movement. 
+My current Vim configuration. It is fairly standard with the addition of Nvim-r and QOL keybinds. 
 
-Currently using the Solarized Dark colorway and pathogen for package management. Currently using:
+Packages are managed via pathogen and colorset is colorized dark. 
 
+* surround
+* fugitive
+* tabular
 * airline
+* goyo.vim
+* easymotion
+* tComment
+* vim-indent-guides
+
 * NerdTREE
 * ConqueGDB
 * Nvim-R
 
-Also used to interactively work in R via Neovim (https://github.com/jalvesaq/Nvim-R).
+## Installation:
 
-Installation:
+```
+# Clone repo
+git clone git://github.com/levvim/dotvim.git ~/.vim
 
-    git clone git://github.com/levvim/dotvim.git ~/.vim
-
-Create symlinks:
-
-    ln -s ~/.vim/vimrc ~/.vimrc
-    ln -s ~/.vim/gvimrc ~/.gvimrc
-
-Switch to the `~/.vim` directory, and fetch submodules:
-
-    cd ~/.vim
-    git submodule init
-    git submodule update
+# Create symlinks:
+ln -s ~/.vim/vimrc ~/.vimrc
+```
