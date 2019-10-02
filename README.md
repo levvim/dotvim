@@ -27,6 +27,8 @@ git clone git://github.com/levvim/dotvim.git ~/.vim
 ln -s ~/.vim/vimrc ~/.vimrc
 
 # Fetch submodules
+cd ~/.vim/bundle
+git clone https://github.com/altercation/vim-colors-solarized
 git clone https://github.com/tpope/vim-surround
 git clone https://github.com/tpope/vim-fugitive
 git clone https://github.com/godlygeek/tabular
