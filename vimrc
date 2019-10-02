@@ -91,7 +91,7 @@ nnoremap <space> za
 
 "airline settings
 set laststatus=2
-let g:airline_theme='sol'
+let g:airline_theme='solarized'
 set t_Co=256
 set noshowmode
 " buffers via airline
@@ -143,6 +143,9 @@ map <SPACE>j <Plug>(easymotion-j)
 map <SPACE>k <Plug>(easymotion-k)
 " Turn on case-insensitive feature
 let g:EasyMotion_smartcase = 0
+
+"Goyo
+map <C-g> :Goyo 80%<CR>
 
 " ConqueGDB
 nnoremap <silent> <Leader>rb  :ConqueTermVSplit bash<CR>
