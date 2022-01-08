@@ -1,4 +1,4 @@
-" Levi Mangarin 2019 
+" Levi Mangarin 2021
 " .vimrc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -48,15 +48,28 @@ nnoremap k gk
 "fast window split resizing (by fixed amount)
 nnoremap <silent> <Leader>- :resize -20<CR>
 nnoremap <silent> <Leader>= :resize +20<CR>
-nnoremap <silent> <Leader>[ :vertical resize -15<CR>
-nnoremap <silent> <Leader>] :vertical resize +15<CR>
+nnoremap <silent> <Leader>[ :vertical resize -10<CR>
+nnoremap <silent> <Leader>] :vertical resize +10<CR>
 nnoremap <C-P> :Vexplore<CR>
 
 "fast window split navigation
+let g:BASH_Ctrl_j = 'off'
+nnoremap <C-h> <C-w><C-h>
 nnoremap <C-j> <C-w><C-j>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-l> <C-w><C-l>
-nnoremap <C-h> <C-w><C-h>
+
+""fast window reconfiguring
+nnoremap <Leader><C-h> <C-w>H
+nnoremap <Leader><C-j> <C-w>J
+nnoremap <Leader><C-k> <C-w>K
+nnoremap <Leader><C-l> <C-w>L
+
+"fast scrolling with leader
+nnoremap nj <C-d>
+nnoremap nk <C-u>
+nnoremap <n-j> <C-d>
+nnoremap <n-k> <C-u>
 
 "fast tab navigation
 nnoremap th  :tabfirst<CR>
@@ -102,10 +115,11 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 
 "vim-r-plugin
 "maplocalleader = "\\"
+map <SPACE> <localleader>
 let vimrplugin_assign = 0
 "NEOVIM NVIM BINDINGS
 "send vis selection block using r
-vmap <Space> <Plug>RDSendSelection
+"vmap <Leader><Space> <Plug>RDSendSelection
 
 "nerdtree
 map <C-n> :NERDTreeToggle<CR>
@@ -139,15 +153,15 @@ let g:indent_guides_enable_on_vim_startup = 1
 nmap s <Plug>(easymotion-overwin-f)
 "map <SPACE> <Plug>(easymotion-s2)
 " JK motions: Line motions
-map <SPACE>j <Plug>(easymotion-j)
-map <SPACE>k <Plug>(easymotion-k)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
 " Turn on case-insensitive feature
 let g:EasyMotion_smartcase = 0
 
 "Goyo
 map <C-g> :Goyo 80%<CR>
 
-" ConqueGDB
+"ConqueGDB
 nnoremap <silent> <Leader>rb  :ConqueTermVSplit bash<CR>
 nnoremap <silent> <Leader>rp  :ConqueTermVSplit python<CR>
 
