@@ -1,4 +1,4 @@
-" Levi Mangarin 2021
+" Levi Mangarin 2019 
 " .vimrc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -46,8 +46,8 @@ nnoremap j gj
 nnoremap k gk
 
 "fast window split resizing (by fixed amount)
-nnoremap <silent> <Leader>- :resize -20<CR>
-nnoremap <silent> <Leader>= :resize +20<CR>
+nnoremap <silent> <Leader>- :resize -10<CR>
+nnoremap <silent> <Leader>= :resize +10<CR>
 nnoremap <silent> <Leader>[ :vertical resize -10<CR>
 nnoremap <silent> <Leader>] :vertical resize +10<CR>
 nnoremap <C-P> :Vexplore<CR>
@@ -66,10 +66,10 @@ nnoremap <Leader><C-k> <C-w>K
 nnoremap <Leader><C-l> <C-w>L
 
 "fast scrolling with leader
-nnoremap nj <C-d>
-nnoremap nk <C-u>
-nnoremap <n-j> <C-d>
-nnoremap <n-k> <C-u>
+nnoremap gj <C-d>
+nnoremap gk <C-u>
+nnoremap <g-j> <C-d>
+nnoremap <g-k> <C-u>
 
 "fast tab navigation
 nnoremap th  :tabfirst<CR>
@@ -77,7 +77,7 @@ nnoremap tj  :tabnext<CR>
 nnoremap tk  :tabprev<CR>
 nnoremap tl  :tablast<CR>
 nnoremap tt  :tabedit<Space>
-nnoremap tn :tabnew<CR>
+nnoremap tn  :tabnew<CR>
 nnoremap tm  :tabm<Space>
 nnoremap td  :tabclose<CR>
 
@@ -86,19 +86,30 @@ nnoremap <silent><Leader>3 o####################################################
 
 "fast insert blank lines
 nnoremap <silent><Leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
-"fast insert blank lines
-nnoremap <silent><Leader>o :set paste<CR>m`o<Esc>``:set nopaste<CR>
 
 "toggle paste
-nnoremap <Leader>p :set invpaste paste?<CR>
-set pastetoggle=<Leader>p
 set showmode
+function! TogglePaste()
+    if(&paste == 0)
+        set paste
+        echo "Paste Mode Enabled"
+    else
+        set nopaste
+        echo "Paste Mode Disabled"
+    endif
+endfunction
+
+nnoremap np :call TogglePaste()<cr>
+
+" fast resizing (for small screens)
+nnoremap nr <C-w>K<C-w><C-j>:resize 8<CR>:resize 8<CR><C-w><C-k>
 
 "delete any trailing whitespace
 let @a = ":%s/\s\+$//e"
 
 " Enable folding with the spacebar
 nnoremap <space> za
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Package settings
 
@@ -123,7 +134,7 @@ let vimrplugin_assign = 0
 
 "nerdtree
 map <C-n> :NERDTreeToggle<CR>
-map <Leader>p :NERDTreeToggle<CR>
+nnoremap nm :NERDTreeToggle<CR>
 let g:NERDTreeDirArrows=0
 
 "fugitive git bindings
@@ -159,7 +170,7 @@ map <Leader>k <Plug>(easymotion-k)
 let g:EasyMotion_smartcase = 0
 
 "Goyo
-map <C-g> :Goyo 80%<CR>
+map <C-g> :Goyo<CR>
 
 "ConqueGDB
 nnoremap <silent> <Leader>rb  :ConqueTermVSplit bash<CR>
@@ -308,6 +319,20 @@ en
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Unused keybinds
+
+""fast window split resizing (by scaled percentage)
+"nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+"nnoremap <silent> <Leader>= :exe "resize " . (winheight(0) * 3/2)<CR>
+"nnoremap <silent> <Leader>[ :exe "resize " . (winwidth(0) * 2/3)<CR>
+"nnoremap <silent> <Leader>] :exe "resize " . (winwidth(0) * 3/2)<CR>
+
+"netrw fast open
+"nnoremap <Leader>p :Vexplore<CR>
+"nnoremap <Leader>o :Sexplore<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unused packages
 
 "crtlp settings
@@ -335,18 +360,3 @@ en
 "set t_Co=256
 """ let g:Powerline_symbols = "fancy"
 
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Unused keybinds
-
-""fast window split resizing (by scaled percentage)
-"nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
-"nnoremap <silent> <Leader>= :exe "resize " . (winheight(0) * 3/2)<CR>
-"nnoremap <silent> <Leader>[ :exe "resize " . (winwidth(0) * 2/3)<CR>
-"nnoremap <silent> <Leader>] :exe "resize " . (winwidth(0) * 3/2)<CR>
-
-"netrw fast open
-"nnoremap <Leader>p :Vexplore<CR>
-"nnoremap <Leader>o :Sexplore<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
