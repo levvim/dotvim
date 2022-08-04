@@ -1,22 +1,23 @@
 " Levi Mangarin 2019 
 " .vimrc
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Basics
-set encoding=utf-8
-set nocompatible
-filetype off
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Plugin Manager (pathogen)
 execute pathogen#infect()
-set relativenumber
-filetype plugin indent on
-
-"enable colorway
-syntax on
+"
+" Colorway
 syntax enable
 set background=dark
 let g:solarized_termtrans=1
 colorscheme solarized
+
+""" Basics
+set encoding=utf-8
+set nocompatible
+filetype off
+set relativenumber
+filetype plugin indent on
+syntax on
 
 set cursorline      "highlight current line
 set backspace=2     "backspace over everything in insert mode
@@ -33,7 +34,7 @@ set incsearch       "search as characters are entered
 set hlsearch        "highlight matches
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Keybindings
+""" Keybindings
 
 "jj is escape in insert mode
 inoremap jj <ESC>
@@ -99,10 +100,10 @@ function! TogglePaste()
     endif
 endfunction
 
-nnoremap np :call TogglePaste()<cr>
+nnoremap gp :call TogglePaste()<cr>
 
 " fast resizing (for small screens)
-nnoremap nr <C-w>K<C-w><C-j>:resize 8<CR>:resize 8<CR><C-w><C-k>
+nnoremap gr <C-w>K<C-w><C-j>:resize 8<CR>:resize 8<CR><C-w><C-k>
 
 "delete any trailing whitespace
 let @a = ":%s/\s\+$//e"
@@ -111,7 +112,7 @@ let @a = ":%s/\s\+$//e"
 nnoremap <space> za
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Package settings
+""" Package settings
 
 "airline settings
 set laststatus=2
@@ -134,7 +135,7 @@ let vimrplugin_assign = 0
 
 "nerdtree
 map <C-n> :NERDTreeToggle<CR>
-nnoremap nm :NERDTreeToggle<CR>
+nnoremap gm :NERDTreeToggle<CR>
 let g:NERDTreeDirArrows=0
 
 "fugitive git bindings
@@ -169,8 +170,13 @@ map <Leader>k <Plug>(easymotion-k)
 " Turn on case-insensitive feature
 let g:EasyMotion_smartcase = 0
 
-"Goyo
+"goyo
 map <C-g> :Goyo<CR>
+
+"fzf
+set rtp+=/usr/local/opt/fzf
+nnoremap <silent> <C-f> :Files<CR>
+nnoremap <silent> gf :Rg<CR>>
 
 "ConqueGDB
 nnoremap <silent> <Leader>rb  :ConqueTermVSplit bash<CR>
